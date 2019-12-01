@@ -5,7 +5,7 @@ const Entity = require('../controllers/Entity');
 const Value = require('../controllers/Value');
 const request = require('request');
 const _ = require('lodash');
-const orionUrl = "http://192.168.111.129";
+const orionUrl = "http://192.168.183.128";
 
 // If an subscription is recieved emit socket io events
 // using the attribute values from the data received to define
