@@ -1,19 +1,14 @@
 {
-  "name": "tutorials.step-by-step",
-  "description": "An Express App for providing context data to FIWARE Components",
+  "name": "microservicioFiware",
+  "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FIWARE/tutorials.step-by-step.git"
+    "url": "git+https://github.com/Jalbladewing/microservicioFiware"
   },
-  "bugs": {
-    "url": "https://github.com/FIWARE/tutorials.step-by-step/issues"
-  },
-  "homepage": "https://fiware-tutorials.rtfd.io/",
-  "author": "FIWARE Foundation e.V.",
+  "author": "Juan Alberto Llopis",
   "keywords": [
     "node",
     "fiware",
-    "tutorial",
     "ngsi"
   ],
   "version": "1.0.0",
@@ -24,37 +19,19 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.4.3",
     "debug": "~3.1.0",
     "express": "~4.16.0",
     "express-session": "^1.15.6",
     "http-errors": "^1.7.0",
-    "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "morgan": "~1.9.0",
-    "mqtt": "^2.18.3",
-    "ngsi_v2": "^0.1.0",
+    "ngsi_v2": "^0.2.1",
     "node-cache": "^4.2.0",
-    "pug": "2.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "socket.io": "^2.1.1",
-    "twitter": "^1.7.1",
-    "xml2js": "^0.4.19"
-  },
-  "devDependencies": {
-    "ajv": "^6.5.2",
-    "eslint": "^5.3.0",
-    "eslint-config-tamia": "^6.0.1",
-    "eslint-plugin-prettier": "^2.6.2",
-    "memfs": "2.9.4",
-    "prettier": "^1.14.2"
+    "socket.io": "^2.1.1"
   },
   "scripts": {
-    "start": "node ./bin/www",
-    "lint": "eslint . --cache --fix",
-    "prettier": "prettier --parser flow --single-quote --write **/**/*.js  **/*.js *.js",
-    "test": "eslint ."
+    "start": "node ./bin/www"
   }
 }
