@@ -1,17 +1,11 @@
 const moment = require('moment');
-const Entity = require('../controllers/Entity');
-const Value = require('../controllers/Value');
+const Entity = require('../domain/Entity');
+const Value = require('../domain/Value');
 
 /* global SOCKET_IO */
 
 function monitor(type, id, payload) {
-  //SOCKET_IO.emit(type, moment().format('LTS') + ' - ' + message);
-  console.log(type);
-  console.log(id);
-  console.log(payload);
   if (payload && Object.keys(payload).length !== 0) {
-    //var dataPreProcessed = preDeserialization(JSON.stringify(payload));
-    //dataPreProcessed = dataPreProcessed.split(",")
     var dataPreProcessed = payload.split(",")
     entities = deserializeJson(dataPreProcessed);
 
