@@ -6,6 +6,7 @@ const Value = require('../domain/Value');
 const request = require('request');
 const _ = require('lodash');
 const orionUrl = "http://192.168.111.129";
+const microserviceUrl = "http://192.168.2.114";
 
 // If an subscription is recieved emit socket io events
 // using the attribute values from the data received to define
@@ -48,7 +49,7 @@ function createSubscription(paramName, paramId)
             'Content-Type': 'application/json'
           },
           uri: orionUrl + ':1026/v2/subscriptions?options=skipInitialNotification',
-          body: '{ "description": "Notify me of all ' + name + ' changes", "subject": { "entities": [{' + queryId + '"type": "' + paramName + '"}],  "condition": { "attrs": [ ] } },  "notification": {"http": { "url": "' + orionUrl + ':3000/subscription/'+ paramName + '&' + paramId + '" } } }',
+          body: '{ "description": "Notify me of all ' + name + ' changes", "subject": { "entities": [{' + queryId + '"type": "' + paramName + '"}],  "condition": { "attrs": [ ] } },  "notification": {"http": { "url": "' + microserviceUrl + ':3000/subscription/'+ paramName + '&' + paramId + '" } } }',
           method: 'POST'
         }, function (err, res, body) {
           //it works!

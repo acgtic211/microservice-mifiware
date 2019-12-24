@@ -8,7 +8,6 @@ function monitor(type, id, payload) {
   if (payload && Object.keys(payload).length !== 0) {
     var dataPreProcessed = payload.split(",")
     entities = deserializeJson(dataPreProcessed);
-
     var entitiesJson = "{" + '"entities": ' + JSON.stringify(entities) + "}";
     SOCKET_IO.emit(type + "-" + id, JSON.parse(entitiesJson));
   }
