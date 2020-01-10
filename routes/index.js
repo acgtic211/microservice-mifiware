@@ -5,8 +5,8 @@ const Entity = require('../domain/Entity');
 const Value = require('../domain/Value');
 const request = require('request');
 const _ = require('lodash');
-const orionUrl = "http://192.168.111.129";
-const microserviceUrl = "http://192.168.2.114";
+const orionUrl = "http://192.168.183.128";
+const microserviceUrl = "http://192.168.44.1";
 
 // If an subscription is recieved emit socket io events
 // using the attribute values from the data received to define
@@ -56,6 +56,7 @@ function createSubscription(paramName, paramId)
         });
       }
 
+
     } else {
         console.log("There was an error: ") + response.statusCode;
         console.log(body);
@@ -63,6 +64,7 @@ function createSubscription(paramName, paramId)
     }
   });
 }
+
 
 
 
@@ -107,6 +109,19 @@ router.get('/subscription', (req, res) => {
 
         createSubscription(paramName, paramId);
         res.json(JSON.parse(entitiesJson));
+    } else {
+        console.log("There was an error: ") + response.statusCode;
+        console.log(body);
+        res.status(response.statusCode).send();
+    }
+});
+});
+
+router.get('/entityList', (req, res) => {
+  request(orionUrl + ":1026/v2/types?options=values", function (error, response, body) {
+    if (!error && response.statusCode == 200) 
+    {
+        res.json(JSON.parse(body));
     } else {
         console.log("There was an error: ") + response.statusCode;
         console.log(body);
