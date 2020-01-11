@@ -4,12 +4,12 @@ const Value = require('../domain/Value');
 
 /* global SOCKET_IO */
 
-function monitor(type, id, payload) {
+function monitor(type, id, filter, payload) {
   if (payload && Object.keys(payload).length !== 0) {
     var dataPreProcessed = payload.split(",")
     entities = deserializeJson(dataPreProcessed);
     var entitiesJson = "{" + '"entities": ' + JSON.stringify(entities) + "}";
-    SOCKET_IO.emit(type + "-" + id, JSON.parse(entitiesJson));
+    SOCKET_IO.emit(type + "-" + id + "-" + filter, JSON.parse(entitiesJson));
   }
 }
 
