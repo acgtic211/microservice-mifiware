@@ -5,8 +5,8 @@ const Entity = require('../domain/Entity');
 const Value = require('../domain/Value');
 const request = require('request');
 const _ = require('lodash');
-const orionUrl = "http://192.168.111.129";
-const microserviceUrl = "http://192.168.2.114";
+const orionUrl = "http://192.168.183.128";
+const microserviceUrl = "http://192.168.44.1";
 
 // If an subscription is recieved emit socket io events
 // using the attribute values from the data received to define
@@ -31,19 +31,21 @@ function createSubscription(paramName, paramId, paramQuery)
       var exists = false;
       var name = paramName;
       var paramUrl = "";
-      var queryId = '"idPattern": ".*", ';
+      var queryId = '"idPattern": ".*"';
       var queryFilter = '';
       var notifyFilter = '';
 
-      if(paramName != "")
+      if(paramName != "" && paramName != "undefined")
       {
+        queryId += ', ';
         paramUrl = '"type": "' + paramName + '"';
       }
       
       if(paramId != "")
       {
-        name = paramId;
-        queryId = '"id": "' + paramId + '", ';
+        name = paramName + " " + paramId;
+        queryId = '"id": "' + paramId + '"';
+        if(paramName != "" && paramName != "undefined") queryId += ', '
       }else
       {
         if(paramQuery!='undefined' && paramQuery != "")
@@ -59,6 +61,7 @@ function createSubscription(paramName, paramId, paramQuery)
           if(reqData[i].description == 'Notify me of all ' + name + ' changes') exists = true;
       }
 
+console.log('{ "description": "Notify me of all ' + name + ' changes", "subject": { "entities": [{' + queryId + paramUrl + '}],  "condition": { "attrs": [ ]' + '} },  "notification": {"http": { "url": "' + microserviceUrl + ':3000/subscription/'+ paramName + '&' + paramId + '&' + notifyFilter + '" } } }');
       if(!exists)
       {
         request({
@@ -96,14 +99,14 @@ router.post('/subscription/:type', (req, res) => {
   var extraUrlQuery = '';
   var filterData = "";
 
-  if(params[0] != "")
+  if(params[0] != "" && params[0] != "undefined")
   {
     paramUrl = "?type=" + params[0];
     paramSeparator = "&";
   }
 
 
-  if(params[1] != "")
+  if(params[1] != "" && params[1] != "undefined")
   {
     extraUrl = paramSeparator + "id=" + params[1];
   }else
@@ -144,7 +147,7 @@ router.get('/subscription', (req, res) => {
   var extraUrl = "";
   var extraUrlQuery = '';
 
-  if(paramName != "")
+  if(paramName != "" && paramName != "undefined")
   {
     paramUrl = "?type=" + paramName;
     paramSeparator = "&";
@@ -196,7 +199,7 @@ router.get('/typeList', (req, res) => {
 });
 
 router.get('/attributeList', (req, res) => {
-  var paramName = req.query.entity;
+  var paramName = req.query.type;
   var attributeList = [];
 
   if(paramName != "" && paramName != "undefined")
